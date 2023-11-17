@@ -10,10 +10,10 @@ const dotenv=require('dotenv')
 const authRoute=require('./routes/auth')
 const userRoute=require('./routes/users')
 const commentRoute=require('./routes/comments')
-console.log(mongoose.version);
+
 const connectDB=async()=>{
     try{
-        await mongoose.connect("mongodb+srv://snithin816:snithin816@cluster0.okezris.mongodb.net/?retryWrites=true&w=majority")
+        await mongoose.connect(process.env.MONGO_URL)
         console.log("database is connected successfully!")
 
     }
@@ -52,7 +52,7 @@ app.post("/api/upload",upload.single("file"),(req,res)=>{
 })
 
 
-app.listen(5000,()=>{
+app.listen(process.env.PORT,()=>{
     connectDB()
     console.log("app is running on port 5000")
 })
